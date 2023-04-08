@@ -16,9 +16,9 @@ shinyServer(function(input, output) {
   
   # TASK 5: Create logic to plot histogram or boxplot
   output$p1 <- renderPlot({
-    if (input$graph_type == "histogram") {
+    if (input$graph_type == "Histogram") {
       # Histogram
-      ggplot(df_country(), aes_string(x = input$continous_variable)) +
+      ggplot(df_country(), aes_string(x = input$continuous_variable)) +
         geom_histogram() +  # histogram geom
         labs(y = "Number of people", title = paste("Trend of", input$continuous_variable)) +  # labels
         facet_wrap(~ prediction)    # facet by prediction
@@ -42,11 +42,11 @@ shinyServer(function(input, output) {
       theme(axis.text.x = element_text(angle = 45), legend.position = "bottom")    # modify theme to change text angle and legend position
     
     if (input$is_stacked) {
-      p + geom_bar(fill = prediction)  # add bar geom and use prediction as fill
+      p + geom_bar(aes(fill = prediction))  # add bar geom and use prediction as fill
     }
     else{
       p + 
-        geom_bar(fill = aes_string(input$categorical_variable)) + # add bar geom and use input$categorical_variables as fill 
+        geom_bar( aes_string(fill=input$categorical_variable)) + # add bar geom and use input$categorical_variables as fill 
         facet_wrap(~ prediction)   # facet by prediction
     }
   })
